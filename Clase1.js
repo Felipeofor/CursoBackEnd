@@ -1,3 +1,4 @@
+// Funcion constructura Usuario que reciba : nombre(string), apellido(string,), libros(array de objetos) y mascotas (array de strings).
 class Usuario{
     constructor(nombre, apellido, libros, mascotas){
         this.nombre = nombre || "";
@@ -5,25 +6,34 @@ class Usuario{
         this.libros = libros || [];
         this.mascotas =  mascotas || [] ;
 }
+    // Debe retornar un string con el nombre y apellido del usuario. Utilizar template string.
 
     getFullName(){
         return `${this.nombre} ${this.apellido}`;
     }
 
+    // Debe agregar una mascota(mascota) al arreglo de mascotas del usuario.
+
     addMascota(mascota){
-        return this.mascotas.push(mascota);
+        this.mascotas.push(mascota);
     }
+
+    // Debe retornar la cantidad de mascotas que tiene el usuario.
 
     getMascotas(){
         return this.mascotas.length;
     }
 
+    //Recibe un string 'book' y un string 'autor' y debe retornar un objeto: {nombre: book, autor: autor} al arreglo de libros de usuario. NO debe retornar nada.
+
     addBook(book, autor){
         this.libros.push({nombre: book, autor: autor});
     }
 
+    //Debe retornar un arrlgo con solo los nombres del arreglo de libros del usuario.
+
     getBooks(){
-        return this.libros.map(this.libros.nombre);
+        return this.libros.map(libros => libros.nombre);
     } 
 }
 
@@ -35,7 +45,7 @@ const user = new Usuario(
 );
 
 console.log(user.getFullName());
-console.log(user.addMascota());
-console.log(user.getMascota());
-console.log(user.addBook());
+user.addMascota("Jose");
+console.log(user.getMascotas());
+user.addBook("Como ganar amigos e influir en las personas", "Dale Carnegie");
 console.log(user.getBooks());
