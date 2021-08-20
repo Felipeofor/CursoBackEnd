@@ -1,60 +1,94 @@
-function primerAcceso() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve('1er acceso');
-      }, 3000);
-   
+function yendoAConsultar1(valor) {
+    return new Promise ((resolve, reject)=>{
+        setTimeout(()=>{
+            if (valor == 'ok') {
+                resolve('Este es el contenido de la consulta 1');
+            } else {
+                reject ('Canceló la consulta sin valor 1');
+            }
+        },3000)
+    });
+}
+function yendoAConsultar2(valor) {
+    return new Promise ((resolve, reject)=>{
+        setTimeout(()=>{
+            if (valor == 'ok') {
+                resolve('Este es el contenido de la consulta 2');
+            } else {
+                reject ('Canceló la consulta sin valor 2');
+            }
+        },2000)
+    });
+}
+function yendoAConsultar3(valor) {
+    return new Promise ((resolve, reject)=>{
+        setTimeout(()=>{
+            if (valor == 'ok') {
+                resolve('Este es el contenido de la consulta 3');
+            } else {
+                reject ('Canceló la consulta sin valor 3');
+            }
+        },5000)
+    });
+}
+function yendoAConsultar4(valor) {
+    return new Promise ((resolve, reject)=>{
+        setTimeout(()=>{
+            if (valor == 'ok') {
+                resolve('Este es el contenido de la consulta 4');
+            } else {
+                reject ('Canceló la consulta sin valor 4');
+            }
+        },1000)
+    });
+}
+function yendoAConsultar5(valor) {
+    return new Promise ((resolve, reject)=>{
+        setTimeout(()=>{
+            if (valor == 'ok') {
+                resolve('Este es el contenido de la consulta 5');
+            } else {
+                reject ('Canceló la consulta sin valor 5');
+            }
+        },4000)
     });
 }
 
-function segundoAcceso() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve('2do acceso');
-      }, 2000);
-   
-    });
+function *creaIds(){
+    let indice = 0;
+    while (indice<25) {
+        yield indice++;
+    }
+    return indice;
 }
 
-function tercerAcceso() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve('3er acceso');
-      }, 5000);
-   
-    });
-}
+let creadorIds = creaIds();
 
-function cuartoAcceso() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve('4to acceso');
-      }, 1000);
-   
-    });
-}
+console.log(creadorIds.next().value);
 
-function quintoAcceso() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve('5to acceso');
-      }, 4000);
-   
-    });
-}
+console.log('Iniciando...');
+yendoAConsultar1('okss')
+    .then(x=>console.log('Volvió la consulta', x))
+    .catch(x=>console.log('Canceló la consulta', x))
+    .finally(()=>console.log('Terminó la consulta'));
 
-async function asyncCall() {
-    console.log('iniciando...');
-    console.log('esperando...')
-    console.log(await primerAcceso());
-    console.log(await segundoAcceso());
-    console.log(await tercerAcceso());
-    console.log(await cuartoAcceso());
-    console.log(await quintoAcceso());
+yendoAConsultar2('okss')
+    .then(x=>console.log('Volvió la consulta', x))
+    .catch(x=>console.log('Canceló la consulta', x))
+    .finally(()=>console.log('Terminó la consulta'));
 
-    console.log('finalizando...');
-    return 25;
-}
-  
-// console.log('Inicio del PGM');
-asyncCall().then(x=>console.log(x));
+yendoAConsultar3('okss')
+    .then(x=>console.log('Volvió la consulta', x))
+    .catch(x=>console.log('Canceló la consulta', x))
+    .finally(()=>console.log('Terminó la consulta'));
+
+yendoAConsultar4('okss')
+    .then(x=>console.log('Volvió la consulta', x))
+    .catch(x=>console.log('Canceló la consulta', x))
+    .finally(()=>console.log('Terminó la consulta'));
+
+yendoAConsultar5('okss')
+    .then(x=>console.log('Volvió la consulta', x))
+    .catch(x=>console.log('Canceló la consulta', x))
+    .finally(()=>console.log('Terminó la consulta'));
+console.log('Finalizando...');
