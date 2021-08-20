@@ -16,5 +16,5 @@ const recorrerTexto = (texto, callback) => {
 
 const fin = (splitTexto) => console.log(`proceso completo ${splitTexto.length}`);
 setTimeout(recorrerTexto, 250, 'Primer texto', fin);
-setTimeout(recorrerTexto, 250, 'Segundo texto', fin);
+setTimeout(recorrerTexto, 250, 'Segundo', fin);
 setTimeout(recorrerTexto, 250, 'Tercer texto', fin);
