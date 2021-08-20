@@ -56,15 +56,13 @@ function yendoAConsultar5(valor) {
 
 function *creaIds(){
     let indice = 0;
-    while (indice<25) {
-        yield indice++;
+    while (true) {
+        yield Math.random() ;
     }
-    return indice;
 }
 
 let creadorIds = creaIds();
 
-console.log(creadorIds.next().value);
 
 console.log('Iniciando...');
 yendoAConsultar1('okss')
@@ -92,3 +90,15 @@ yendoAConsultar5('okss')
     .catch(x=>console.log('Canceló la consulta', x))
     .finally(()=>console.log('Terminó la consulta'));
 console.log('Finalizando...');
+
+function creador() {for (i=0; i<25; i++){
+    console.log(creadorIds.next().value);
+}}
+
+creador();
+
+
+// console.log(creadorIds.next().value);
+// console.log(creadorIds.next().value);
+// console.log(creadorIds.next().value);
+// console.log(creadorIds.next().value);
