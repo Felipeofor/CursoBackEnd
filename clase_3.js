@@ -6,7 +6,7 @@ const recorrerTexto = (texto, callback) => {
             console.log(splitTexto[i++]);
             if(i == splitTexto.length){
                 clearInterval (interval);
-                callback();
+                callback(splitTexto);
             }
         },200
     )
@@ -14,7 +14,7 @@ const recorrerTexto = (texto, callback) => {
 }
 
 
-const fin = () => console.log(`proceso completo`);
+const fin = (splitTexto) => console.log(`proceso completo ${splitTexto.length}`);
 setTimeout(recorrerTexto, 250, 'Primer texto', fin);
-// setTimeout(recorrerTexto, 250, 'Segundo texto', fin);
-// setTimeout(recorrerTexto, 250, 'Tercer texto', fin);
+setTimeout(recorrerTexto, 250, 'Segundo texto', fin);
+setTimeout(recorrerTexto, 250, 'Tercer texto', fin);
