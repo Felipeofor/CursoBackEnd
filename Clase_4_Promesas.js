@@ -1,8 +1,9 @@
 //Lanzar los 5 accesos en forma automática (es decir, el 2do debe lanzarse sin esperar que finalice el 1ero y así sucesivamente)
-function yendoAConsultar1(valor) {
+const azar = Math.random()
+function yendoAConsultar1() {
     return new Promise ((resolve, reject)=>{
         setTimeout(()=>{
-            if (valor == 'ok') {
+            if (azar >= 0.2) {
                 resolve('Este es el contenido de la consulta 1');
             } else {
                 reject ('Canceló la consulta sin valor 1');
@@ -10,10 +11,10 @@ function yendoAConsultar1(valor) {
         },3000)
     });
 }
-function yendoAConsultar2(valor) {
+function yendoAConsultar2() {
     return new Promise ((resolve, reject)=>{
         setTimeout(()=>{
-            if (valor == 'ok') {
+            if (azar >= 0.2) {
                 resolve('Este es el contenido de la consulta 2');
             } else {
                 reject ('Canceló la consulta sin valor 2');
@@ -21,10 +22,10 @@ function yendoAConsultar2(valor) {
         },2000)
     });
 }
-function yendoAConsultar3(valor) {
+function yendoAConsultar3() {
     return new Promise ((resolve, reject)=>{
         setTimeout(()=>{
-            if (valor == 'ok') {
+            if (azar >= 0.2) {
                 resolve('Este es el contenido de la consulta 3');
             } else {
                 reject ('Canceló la consulta sin valor 3');
@@ -32,10 +33,10 @@ function yendoAConsultar3(valor) {
         },5000)
     });
 }
-function yendoAConsultar4(valor) {
+function yendoAConsultar4() {
     return new Promise ((resolve, reject)=>{
         setTimeout(()=>{
-            if (valor == 'ok') {
+            if (azar >= 0.2) {
                 resolve('Este es el contenido de la consulta 4');
             } else {
                 reject ('Canceló la consulta sin valor 4');
@@ -43,10 +44,10 @@ function yendoAConsultar4(valor) {
         },1000)
     });
 }
-function yendoAConsultar5(valor) {
+function yendoAConsultar5() {
     return new Promise ((resolve, reject)=>{
         setTimeout(()=>{
-            if (valor == 'ok') {
+            if (azar >= 0.2) {
                 resolve('Este es el contenido de la consulta 5');
             } else {
                 reject ('Canceló la consulta sin valor 5');
@@ -66,31 +67,31 @@ let creadorIds = creaIds();
 //Emitir un mensaje previo a comenzar los accesos a internet
 console.log('Iniciando...');
 //Al regresar cada uno de los accesos, emitir el resultado (ok u error) y en caso de retornar ok, imprimir por consola el objeto recibido. 
-yendoAConsultar1('okss')
+yendoAConsultar1()
     .then(x=>console.log('ok', x))
     .catch(x=>console.log('error', x))
     //A su vez, en cada acceso, haya vuelto ok o con error, imprimir por consola un nuevo número al azar utilizando el mismo iterador anterior
     .finally(()=>console.log(creadorIds.next().value));
 //Al regresar cada uno de los accesos, emitir el resultado (ok u error) y en caso de retornar ok, imprimir por consola el objeto recibido. 
-yendoAConsultar2('okss')
+yendoAConsultar2()
     .then(x=>console.log('ok', x))
     .catch(x=>console.log('error', x))
     //A su vez, en cada acceso, haya vuelto ok o con error, imprimir por consola un nuevo número al azar utilizando el mismo iterador anterior
     .finally(()=>console.log(creadorIds.next().value));
 //Al regresar cada uno de los accesos, emitir el resultado (ok u error) y en caso de retornar ok, imprimir por consola el objeto recibido. 
-yendoAConsultar3('okss')
+yendoAConsultar3()
     .then(x=>console.log('ok', x))
     .catch(x=>console.log('error', x))
     //A su vez, en cada acceso, haya vuelto ok o con error, imprimir por consola un nuevo número al azar utilizando el mismo iterador anterior
     .finally(()=>console.log(creadorIds.next().value));
 //Al regresar cada uno de los accesos, emitir el resultado (ok u error) y en caso de retornar ok, imprimir por consola el objeto recibido. 
-yendoAConsultar4('okss')
+yendoAConsultar4()
     .then(x=>console.log('ok', x))
     .catch(x=>console.log('error', x))
     //A su vez, en cada acceso, haya vuelto ok o con error, imprimir por consola un nuevo número al azar utilizando el mismo iterador anterior
     .finally(()=>console.log(creadorIds.next().value));
 //Al regresar cada uno de los accesos, emitir el resultado (ok u error) y en caso de retornar ok, imprimir por consola el objeto recibido. 
-yendoAConsultar5('okss')
+yendoAConsultar5()
     .then(x=>console.log('ok', x))
     .catch(x=>console.log('error', x))
     //A su vez, en cada acceso, haya vuelto ok o con error, imprimir por consola un nuevo número al azar utilizando el mismo iterador anterior
