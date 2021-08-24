@@ -1,6 +1,7 @@
 //Lanzar los 5 accesos en forma automática (es decir, el 2do debe lanzarse sin esperar que finalice el 1ero y así sucesivamente)
-const azar = Math.random()
+
 function yendoAConsultar1() {
+    const azar = Math.random()
     return new Promise ((resolve, reject)=>{
         setTimeout(()=>{
             if (azar >= 0.2) {
@@ -12,6 +13,7 @@ function yendoAConsultar1() {
     });
 }
 function yendoAConsultar2() {
+    const azar = Math.random()
     return new Promise ((resolve, reject)=>{
         setTimeout(()=>{
             if (azar >= 0.2) {
@@ -23,6 +25,7 @@ function yendoAConsultar2() {
     });
 }
 function yendoAConsultar3() {
+    const azar = Math.random()
     return new Promise ((resolve, reject)=>{
         setTimeout(()=>{
             if (azar >= 0.2) {
@@ -34,6 +37,7 @@ function yendoAConsultar3() {
     });
 }
 function yendoAConsultar4() {
+    const azar = Math.random()
     return new Promise ((resolve, reject)=>{
         setTimeout(()=>{
             if (azar >= 0.2) {
@@ -45,6 +49,7 @@ function yendoAConsultar4() {
     });
 }
 function yendoAConsultar5() {
+    const azar = Math.random()
     return new Promise ((resolve, reject)=>{
         setTimeout(()=>{
             if (azar >= 0.2) {
