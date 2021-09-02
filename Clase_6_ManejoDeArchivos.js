@@ -35,7 +35,7 @@ class Archivo{
         }   
     }
 }
-const prueba=new Archivo("producto.txt")
+const prueba=new Archivo("productos.txt")
 prueba.leer()
 // prueba.guardar()
 // prueba.borrar()

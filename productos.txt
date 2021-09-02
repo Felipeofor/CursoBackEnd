@@ -1,0 +1,7 @@
+[
+    {"title":"Nike sb","price":10000 ,"thumbnail":"https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/g16thmfkapl730glqgxh/calzado-de-skateboarding-sb-zoom-stefan-janoski-canvas-rm-qfDpRn.png"}
+
+    {"title":"Puma","price":15000 ,"thumbnail":"https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/g16thmfkapl730glqgxh/calzado-de-skateboarding-sb-zoom-stefan-janoski-canvas-rm-qfDpRn.png"}
+
+    {"title":"Adidas","price":20000 ,"thumbnail":"https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/g16thmfkapl730glqgxh/calzado-de-skateboarding-sb-zoom-stefan-janoski-canvas-rm-qfDpRn.png"}
+]
