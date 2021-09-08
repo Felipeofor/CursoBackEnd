@@ -26,18 +26,20 @@ app.get("/api/productos/listar",(req,res)=>{
 })
 
 app.get("/api/productos/listar/:id",(req,res)=>{
+    const { id } = req.params
+    const producto = productos.find((user) => user.id == id)
     try{
-        res.send(req.body.idUnico);
+        res.json(producto);
     } catch (e){
        res.json({msg: "error: 'producto no encontrado'"});
     }
-})
+});
 
 app.post("/api/productos/guardar",(req,res)=>{
     const newProducto = {
-        id : idUnico,
-        ...req.body.producto,
+        id: idUnico,
+        ...req.body,
     }
     req.body.push(newProducto);
-    res.status(201).json(newProducto)
-})
+    res.status(201).json(newProducto);
+});
