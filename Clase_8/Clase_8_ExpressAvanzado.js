@@ -19,7 +19,7 @@ app.get("/",(req,res)=>{
 // Devuelve array de productos.
 app.get("/api/productos/listar",(req,res)=>{
     try{
-        res.send(req.body);
+        res.json(listaProductos);
     } catch (e){
        res.json({msg: "error: 'producto no encontrado'"});
     }
