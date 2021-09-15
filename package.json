@@ -18,6 +18,8 @@
   "homepage": "https://github.com/Felipeofor/CursoBackEnd#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-handlebars": "^5.3.3",
+    "handlebars": "^4.7.7",
     "moment": "^2.29.1",
     "nodemon": "^2.0.12"
   }
