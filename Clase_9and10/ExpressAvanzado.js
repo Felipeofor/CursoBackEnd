@@ -1,4 +1,5 @@
 const express = require('express');
+const handlebars = require('express-handlebars')
 const fs = require("fs");
 const app = express()
 const PORT=8000
@@ -21,20 +22,42 @@ const server=app.listen(PORT,()=>{
 
 server.on('error',error=>(console.log("Error en Servidor", error)))
 
+app.engine(
+    "hbs",
+    handlebars({
+        extname: ".hbs",
+        defaultLayout: "index.hbs",
+        layoutsDir:"./views/layouts",
+        partialsDir:"./views/partials"
+    })
+)
+app.set('views', './views'); // especifica el directorio de vistas
+app.set('view engine', 'hbs'); // registra el motor de plantillas
+
 //Rutas
 
 //Devuelve mensaje de bienvenida.
 api.get("/",(req,res)=>{
     res.send('<h1 style="color:blue"> Bienvenidos al Servidor Express </h1>');
 })
-// Devuelve array de productos.
-api.get("/productos/listar",(req,res)=>{
-    try{
-        res.json(listaProductos);
-    } catch (e){
-       res.json({msg: "error: 'producto no encontrado'"});
+// Devuelve la lista de productos
+app.get("/productos/vista",(req,res)=>{
+    if (listaProductos.length==0) {
+        res.render('lista', { item: "No hay productos" ,active:false});
+    }else{
+        res.render('lista', { item: listaProductos,active:true});
     }
+    
 })
+
+// // Devuelve array de productos.
+// app.get("/productos/listar",(req,res)=>{
+//     try{
+//         res.render('indx.hbs');
+//     } catch (e){
+//        res.json({msg: "error: 'producto no encontrado'"});
+//     }
+// })
 //Devuelve producto listado por su id.
 api.get("/productos/listar/:id",(req,res)=>{
     const { id } = req.params
@@ -53,7 +76,8 @@ api.post("/productos/guardar",(req,res)=>{
             ...req.body,
         }
         listaProductos.push(newProducto);
-        res.status(201).json(listaProductos);
+        // res.status(201).json(listaProductos)
+        res.redirect("/");
     } catch (error) {
         res.status(404).json({msg: "error: 'No se agrego el producto a la lista'"});
     }
