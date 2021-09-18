@@ -1,0 +1,2 @@
+Personalmente prefiero el motor de plantillas de .pug ya que me es mas amigable la sintaxis
+que se utiliza en sus archivos. 
