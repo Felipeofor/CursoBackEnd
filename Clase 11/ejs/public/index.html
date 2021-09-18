@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Cargar productos</title>
+</head>
+<body>
+ 
+    <h1>Here you can add products to your catalog!</h1>
+ 
+    <form method="post" class="form" action="api/productos/guardar" style="margin:20px;">
+        <fieldset>
+            <legend class="form-legend">Product data</legend>
+            <p>Title:<input name="title" type="text" required></p>
+            <p>Price:<input name="price" type="number" required></p>
+            <p>Thumbnail:<input name="thumbnail" type="text" required></p>
+        </fieldset>    
+        <button type="submit">Send</button>
+    </form>
+
+</body>
+</html>
