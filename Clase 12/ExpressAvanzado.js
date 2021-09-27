@@ -1,103 +1,70 @@
-const express = require('express');
-const handlebars = require('express-handlebars');
-const fs = require("fs");
+const express = require("express");
+const handlebars = require("express-handlebars");
 const app = express();
-const PORT=8000;
-const http = require("http").Server(app);
-const io = require("socket.io")(http);
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
+const routerAPI = express.Router();
+const PORT = 8000; //+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("./public"));
+app.use("/api", routerAPI);
+server.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
+server.on("error", (error) => console.log("Server Error\n\t", error));
 
-// Generador de Id.
-const { v4: uuidv4 } = require('uuid');
-
-// Declaracion de ruta api
-const api=express.Router()
-app.use("/api",api)
-
-// Declaracion de ruta Static
-app.use(express.static("./public"))
-
-// productos array
-let listaProductos = [];
-
-// lectura JSON de api
-api.use(express.json());
-api.use(express.urlencoded({extended: true}));
-
-http.listen(PORT, ()=>{
-    console.log(`Puerto ${PORT} escuchando..`)
-})
-
-app.set('views', './views'); // especifica el directorio de vistas
-app.set('view engine', 'pug'); // registra el motor de plantillas
-
-//Rutas
-
-//Pantalla principal.
-io.on("connection", (socket =>{
-    console.log("Usuario conectado")
-    socket.emit("items", listaProductos)
-    socket.on("item", (dato) =>{
-        productos.push(dato)
-        io.socket.emit("items", listaProductos)
+// handlebars engine
+app.engine(
+    "hbs",
+    handlebars({
+        extname: ".hbs",
+        defaultLayout: "index.hbs",
+        layoutsDir: __dirname + "/views",
+        partialsDir: __dirname + "/views/partials",
     })
-}))
+);
+app.set("views", "./views");
+app.set("view engine", "hbs");
+app.get('/', (_, res) => res.redirect('/productos'));
 
-// Devuelve la lista de productos
-app.get("/productos/vista",(req,res)=>{
-    if (listaProductos.length==0) {
-        res.render('lista.pug', { item: "No hay productos" ,active:false});
-    }else{
-        res.render('lista.pug', { item: listaProductos,active:true});
+//listado de productos
+let productCatalog = [
+    {
+        id: 1,
+        title: "Curso de chofer",
+        price: 7000,
+        thumbnail: "https://cdn3.iconfinder.com/data/icons/online-learning-vol-1-2/64/Video_Lession-256.png"
+    },
+    {
+        id: 2,
+        title: "Clase de manejo",
+        price: 3000,
+        thumbnail: "https://cdn4.iconfinder.com/data/icons/LUMINA/accounting/png/256/bus.png"
+    },
+    {
+        id: 3,
+        title: "Hoja de vida",
+        price: 1000,
+        thumbnail: "https://cdn0.iconfinder.com/data/icons/job-seeker/256/cv_job_seeker_employee_unemployee_work-256.png"
     }
-    
+];
+
+// Ruta base para uso de HANDLEBARS
+app.get('/productos', (req, res) => {
+    if (productCatalog.length) {
+        res.render('index', { ok: true, error: null, products: productCatalog })
+    } else {
+        res.render('index', { ok: false, error: 'No hay products cargados', productos: [] })
+    }
 })
 
-api.get("/productos/listar/:id",(req,res)=>{
-    const { id } = req.params
-    const producto = listaProductos.find((producto) => producto.id == id)
-    try{
-        res.json(producto);
-    } catch (e){
-       res.json({msg: "error: 'producto no encontrado'"});
-    }
+io.on('connection', (socket) => {
+    console.log('Someone is connected');
+    socket.emit('productCatalog', { products: productCatalog, viewTitle: "Listado de productos", errorMessage: "No hay productos." });
+    socket.on('newProduct', (data) => {
+        console.log(data);
+        productCatalog.push({ id: productCatalog.length + 1, ...data });
+        console.log(productCatalog);
+        io.sockets.emit('productCatalog', { products: productCatalog, viewTitle: "Listado de productos", errorMessage: "No hay productos." });
+    });
 });
-//Almacena producto y devuelve el mismo.
-api.post("/productos/guardar",(req,res)=>{
-    try {
-        const newProducto = {
-            id: uuidv4(),
-            ...req.body,
-        }
-        listaProductos.push(newProducto);
-        // res.status(201).json(listaProductos)
-        res.redirect("/");
-    } catch (error) {
-        res.status(404).json({msg: "error: 'No se agrego el producto a la lista'"});
-    }
-});
-//Actualiza producto y lo devuelve.
-api.put("/productos/actualizar/:id", (req,res)=>{
-    const { id } =  req.params;
-    const { title, price, thumbnail } = req.body;
-    const producto = listaProductos.find((producto) => producto.id == id);
-    if (!producto) {
-        return res.status(404).json({msg: "Usuario encontrado"});
-    }
-    (producto.title = title), (producto.price = price), (producto.thumbnail = thumbnail);
-
-    rest.status(200).json(producto);
-})
-//Borra producto y devuelve el mismo.
-api.delete("/productos/borrar/:id", (req, res) => {
-    const { id } = req.params;
-    const producto = listaProductos.find((producto) => producto.id == id);
-  
-    if (!producto) {
-      return res.status(404).json({ msg: "Usuario no encontrado" });
-    }
-  
-    const index = productos.findIndex((producto) => producto.id == id);
-    listaProductos.splice(index, 1);
-  
-    res.status(200).end(); 
-  });

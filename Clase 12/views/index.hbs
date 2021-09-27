@@ -1,0 +1,43 @@
+{{>header}}
+
+<div class="formCard">
+    <h2>Agregar producto:</h2>
+    <form action="" name="Form" onsubmit="return createProd(this)">
+        <div class="form-group" style="padding:1.5em;">
+            <label for="title">Título</label>
+            <input type="text" class="form-control" id="title" name="title" aria-describedby="title"
+                placeholder="Ingrese titulo del producto">
+        </div>
+        <div class="form-group" style="padding:1.5em;">
+            <label for="price">Precio</label>
+            <input type="number" class="form-control" id="price" name="price" placeholder="Ingrese precio del producto">
+        </div>
+        <div class="form-group" style="padding:1.5em;">
+            <label for="thumbnail">URL de la imagen</label>
+            <input type="url" class="form-control" id="thumbnail" name="thumbnail"
+                placeholder="Ingrese url de la imagen">
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin:1.5em;">
+            Agregar producto</button>
+    </form>
+</div>
+</div>
+
+<div class="row" style="padding: 1em;border-color:white;border-style:solid;border-width: 1px 0px">
+    <div class="col">
+        Nombre
+    </div>
+    <div class="col">
+        Precio
+    </div>
+    <div class="col-3">
+        Imagen
+    </div>
+</div>
+
+<div class="row" style="padding: 1em;border-color:white;border-style:solid;border-width: 1px 0px">
+    <!-- Here goes the data sent from server -->
+    <div id="productCatalog"></div>
+</div>
+
+{{>footer}}
