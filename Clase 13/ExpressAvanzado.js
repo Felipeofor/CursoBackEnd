@@ -1,5 +1,6 @@
 const express = require("express");
 const handlebars = require("express-handlebars");
+const fs = require('fs');
 const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
@@ -27,11 +28,11 @@ app.set("views", "./views");
 app.set("view engine", "hbs");
 app.get('/', (_, res) => res.redirect('/productos'));
 
-//listado de productos
+//lista de productos
 let productCatalog = [
     {
         id: 1,
-        title: "Guia para ser chofer",
+        title: "Curso de chofer",
         price: 7000,
         thumbnail: "https://cdn3.iconfinder.com/data/icons/online-learning-vol-1-2/64/Video_Lession-256.png"
     },
@@ -49,6 +50,23 @@ let productCatalog = [
     }
 ];
 
+let messagesFile = 'mensajes/mensajes.json';
+
+//Funciones para persistencia de datos en mensajes.json
+function leerMensajes() {
+    let messages = fs.readFileSync(messagesFile, "utf-8")
+    let parsedMessages = JSON.parse(messages);
+    console.log("File read correctly.");
+    return parsedMessages;
+}
+
+function guardarMensajes(msj) {
+    let messages = leerMensajes();
+    messages.push(msj);
+    fs.writeFileSync(messagesFile, JSON.stringify(messages));
+    console.log("Message saved.");
+}
+
 // Ruta base para uso de HANDLEBARS
 app.get('/productos', (req, res) => {
     if (productCatalog.length) {
@@ -60,11 +78,18 @@ app.get('/productos', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('Someone is connected');
+
     socket.emit('productCatalog', { products: productCatalog, viewTitle: "Listado de productos", errorMessage: "No hay productos." });
     socket.on('newProduct', (data) => {
-        console.log(data);
         productCatalog.push({ id: productCatalog.length + 1, ...data });
         console.log(productCatalog);
         io.sockets.emit('productCatalog', { products: productCatalog, viewTitle: "Listado de productos", errorMessage: "No hay productos." });
+    });
+
+    let messages = leerMensajes();
+    socket.emit('messages', { messages: messages });
+    socket.on('newMsg', (data) => {
+        guardarMensajes(data);
+        io.sockets.emit('messages', { messages: leerMensajes() });
     });
 });
