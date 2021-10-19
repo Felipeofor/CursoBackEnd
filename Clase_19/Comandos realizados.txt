@@ -1,0 +1,49 @@
+> mongosh
+
+> use ecommerce
+
+> db
+
+> db.createCollection("mensajes")
+
+> db.createCollection("productos")
+
+> show collections
+
+> db.mensajes.insert([{Maria: "Fernandez"}, {Pepe: "Mujica"}, {Matias: "Ortiz"}, {Ramos: "Felipe"}])
+
+> db.mensajes.insert([{Maria: "Fernandez"}, {Pepe: "Mujica"}, {Matias: "Ortiz"}, {Ramos: "Felipe"}])
+
+> db.mensajes.insert([{Maria: "Fernandez"}, {Pepe: "Mujica"}])
+
+> db.mensajes.find()
+
+> db.productos.insert([{Item: "Licuadora", Precio: "1500"}, {Item: "Funda de celular", Precio:"500"}, {Item: "Auricurales", Precio: "2000"}, {Item: "Microondas", Precio: "5000"}, {Item: "Mouse", Precio: "4000"}])
+
+> db.productos.insert([{Item: "Licuadora", Precio: "1500"}, {Item: "Funda de celular", Precio:"500"}, {Item: "Auricurales", Precio: "2000"}, {Item: "Microondas", Precio: "5000"}, {Item: "Mouse", Precio: "4000"}])
+
+> db.productos.find()
+
+> db.productos.count()
+
+> db.mensajes.count()
+
+> db.productos.insert([{Item: "Peluche", Precio: "3500"}])
+
+> db.productos.find({Item: "Peluche"})
+
+> db.productos.find({"Precio": {$lt: 1000}})
+
+> db.productos.find({"Precio": {$in: [1000, 3000]}})
+
+> db.productos.find({"Precio": {$gt: 3000}})
+
+> db.productos.find({"Precio": {$lt: 5000}).skip(2).limit(1).sort({productos: 1})
+
+> db.productos.updateMany({}, {$set: {"stock": 100}})
+
+> db.productos.updateMany({Precio: {$gt: 4000}}, {$set: {"stock": 0}})
+
+> db.productos.deleteMany({Precio: {$lt: 1000}})
+
+> db.createUser({user:"Pepe", pwd: "asd456", roles:[{role:"read", db:"productos"}, {role:"read", db:"mensajes"}]})
