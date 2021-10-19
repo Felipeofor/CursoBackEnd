@@ -38,7 +38,7 @@
 
 > db.productos.find({"Precio": {$gt: 3000}})
 
-> db.productos.find({"Precio": {$lt: 5000}).skip(2).limit(1).sort({productos: 1})
+> db.productos.find({"Precio": {$lt: 5000}}).skip(2).limit(1).sort({productos: 1})
 
 > db.productos.updateMany({}, {$set: {"stock": 100}})
 
