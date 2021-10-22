@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramos Felipe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="./socket.io/socket.io.js"></script>
+    <script src="./index.js"></script>
+</head>
+
+<body>
+
+
+    <div class="container">
+        {{#if updateForm}}
+
+        {{!-- formulario actualizar producto --}}
+        <div class="formCard">
+            <h2>Editar producto:</h2>
+
+            <form action="/productos/ed/{{product._id}}?_method=PUT" method="POST">
+                <div class="form-group" style="padding:1.5em;">
+                    <label for="title">Título</label>
+                    <input type="text" class="form-control" id="title" name="title" aria-describedby="title"
+                        value="{{product.title}}">
+                </div>
+                <div class="form-group" style="padding:1.5em;">
+                    <label for="price">Precio</label>
+                    <input type="number" class="form-control" id="price" name="price" value="{{product.price}}">
+                </div>
+                <div class="form-group" style="padding:1.5em;">
+                    <label for="thumbnail">URL de la imagen</label>
+                    <input type="url" class="form-control" id="thumbnail" name="thumbnail"
+                        value="{{product.thumbnail}}">
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin:1.5em;">
+                    Actualizar producto</button>
+            </form>
+        </div>
+
+        {{else}}
+
+        <div class="container">
+            <div class="col-12" style="text-align: center; font-size:2rem; padding: 0.5em">
+                <h2 id="viewTitle"></h2>
+            </div>
+
+            <div class="row" style="padding: 1em;border-color:white;border-style:solid;border-width: 1px 0px">
+                <!-- Here goes the data sent from server -->
+                <div id="productCatalog"></div>
+            </div>
+
+            <div class="formCard">
+                <h2>Agregar producto:</h2>
+                <form action="/productos/agregar" method="POST" name="Products" onsubmit="return createProd(this)">
+                    <div class="form-group" style="padding:1.5em;">
+                        <label for="title">Título</label>
+                        <input type="text" class="form-control" id="title" name="title" aria-describedby="title"
+                            placeholder="Ingrese titulo del producto">
+                    </div>
+                    <div class="form-group" style="padding:1.5em;">
+                        <label for="price">Precio</label>
+                        <input type="number" class="form-control" id="price" name="price"
+                            placeholder="Ingrese precio del producto">
+                    </div>
+                    <div class="form-group" style="padding:1.5em;">
+                        <label for="thumbnail">URL de la imagen</label>
+                        <input type="url" class="form-control" id="thumbnail" name="thumbnail"
+                            placeholder="Ingrese url de la imagen">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin:1.5em;">
+                        Agregar producto</button>
+                </form>
+            </div>
+
+            <div class="formCard">
+                <h2>Mensajes</h2>
+                <div id="messages"></div>
+                <form action="" name="Messages" onsubmit="return sendMsg(this)">
+                    <div class="form-group" style="padding:1.5em;">
+                        <label for="title">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" aria-describedby="email"
+                            placeholder="Email">
+                    </div>
+                    <div class="form-group" style="padding:1.5em;">
+                        <label for="msg">Mensaje</label>
+                        <input type="text" class="form-control" id="msg" name="msg" placeholder="Ingrese mensaje">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin:1.5em;">
+                        Enviar</button>
+                </form>
+            </div>
+        </div>
+
+        {{/if}}
+
+    </div>
+
+</body>
+
+</html>
